@@ -66,6 +66,8 @@ static CBlock CreateGenesisBlock(uint32_t nTime, uint32_t nNonce, uint32_t nBits
 }
 
 /**
+ * todo Mr.dong 主网配置
+ *
  * Main network on which people trade goods and services.
  */
 class CMainParams : public CChainParams {
@@ -74,6 +76,8 @@ public:
         m_chain_type = ChainType::MAIN;
         consensus.signet_blocks = false;
         consensus.signet_challenge.clear();
+
+        // todo 间隔多少个区块奖励减半
         consensus.nSubsidyHalvingInterval = 210000;
         consensus.script_flag_exceptions.emplace( // BIP16 exception
             uint256S("0x00000000000002dc756eebf4f49723ed8d30cc28a5f108eb94b1ba88ac4f9c22"), SCRIPT_VERIFY_NONE);
@@ -87,7 +91,9 @@ public:
         consensus.SegwitHeight = 481824; // 0000000000000000001c8018d9cb3b742ef25114f27563e3fc4a1902167f9893
         consensus.MinBIP9WarningHeight = 483840; // segwit activation height + miner confirmation window
         consensus.powLimit = uint256S("00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
+        // todo nMinerConfirmationWindow：2016个区块出块时间控制在下面设置的时间左右
         consensus.nPowTargetTimespan = 14 * 24 * 60 * 60; // two weeks
+        // todo 一个区块出块的平均时间控制在下面设置的时间左右
         consensus.nPowTargetSpacing = 10 * 60;
         consensus.fPowAllowMinDifficultyBlocks = false;
         consensus.fPowNoRetargeting = false;
@@ -116,7 +122,9 @@ public:
         pchMessageStart[1] = 0xbe;
         pchMessageStart[2] = 0xb4;
         pchMessageStart[3] = 0xd9;
-        nDefaultPort = 8333;
+        // todo p2p端口（节点通信）
+        nDefaultPort = 9283;
+//        nDefaultPort = 8333;
         nPruneAfterHeight = 100000;
         m_assumed_blockchain_size = 590;
         m_assumed_chain_state_size = 9;
@@ -186,6 +194,8 @@ public:
 };
 
 /**
+ * todo Mr.dong 测试网配置（需跟主网一致）
+ *
  * Testnet (v3): public test network which is reset from time to time.
  */
 class CTestNetParams : public CChainParams {
@@ -205,8 +215,12 @@ public:
         consensus.SegwitHeight = 834624; // 00000000002b980fcd729daaa248fd9316a5200e9b367f4ff2c42453e84201ca
         consensus.MinBIP9WarningHeight = 836640; // segwit activation height + miner confirmation window
         consensus.powLimit = uint256S("00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
-        consensus.nPowTargetTimespan = 14 * 24 * 60 * 60; // two weeks
-        consensus.nPowTargetSpacing = 10 * 60;
+        // todo nMinerConfirmationWindow：2016个区块出块时间控制在下面设置的时间左右
+//        consensus.nPowTargetTimespan = 14 * 24 * 60 * 60; // two weeks
+        consensus.nPowTargetTimespan = 60 * 60; // 1 hour
+        // todo 一个区块出块的平均时间控制在下面设置的时间左右
+//        consensus.nPowTargetSpacing = 10 * 60; // 10 min
+        consensus.nPowTargetSpacing = 30; // 30 seconds
         consensus.fPowAllowMinDifficultyBlocks = true;
         consensus.fPowNoRetargeting = false;
         consensus.nRuleChangeActivationThreshold = 1512; // 75% for testchains
@@ -229,7 +243,9 @@ public:
         pchMessageStart[1] = 0x11;
         pchMessageStart[2] = 0x09;
         pchMessageStart[3] = 0x07;
-        nDefaultPort = 18333;
+        // todo p2p端口（节点通信）
+//        nDefaultPort = 18333;
+        nDefaultPort = 19283;
         nPruneAfterHeight = 1000;
         m_assumed_blockchain_size = 42;
         m_assumed_chain_state_size = 3;
@@ -285,6 +301,8 @@ public:
 };
 
 /**
+ * todo Mr.dong Signet测试网配置（为了解决testnet的问题）
+ *
  * Signet: test network with an additional consensus parameter (see BIP325).
  */
 class SigNetParams : public CChainParams {
@@ -365,7 +383,8 @@ public:
         uint256 hash = h.GetHash();
         std::copy_n(hash.begin(), 4, pchMessageStart.begin());
 
-        nDefaultPort = 38333;
+//        nDefaultPort = 38333;
+        nDefaultPort = 39283;
         nPruneAfterHeight = 1000;
 
         genesis = CreateGenesisBlock(1598918400, 52613770, 0x1e0377ae, 1, 50 * COIN);
@@ -398,6 +417,8 @@ public:
 };
 
 /**
+ * todo Mr.dong 回归测试网配置
+ *
  * Regression test: intended for private networks only. Has minimal difficulty to ensure that
  * blocks can be found instantly.
  */
@@ -442,7 +463,8 @@ public:
         pchMessageStart[1] = 0xbf;
         pchMessageStart[2] = 0xb5;
         pchMessageStart[3] = 0xda;
-        nDefaultPort = 18444;
+//        nDefaultPort = 18444;
+        nDefaultPort = 19384;
         nPruneAfterHeight = opts.fastprune ? 100 : 1000;
         m_assumed_blockchain_size = 0;
         m_assumed_chain_state_size = 0;

@@ -103,6 +103,7 @@ void BlockAssembler::resetBlock()
     nFees = 0;
 }
 
+//todo Mr.dong 创建一个新区块
 std::unique_ptr<CBlockTemplate> BlockAssembler::CreateNewBlock(const CScript& scriptPubKeyIn)
 {
     const auto time_start{SteadyClock::now()};
@@ -148,13 +149,19 @@ std::unique_ptr<CBlockTemplate> BlockAssembler::CreateNewBlock(const CScript& sc
     m_last_block_num_txs = nBlockTx;
     m_last_block_weight = nBlockWeight;
 
+    // todo 创建coinbase奖励输出（区块的第一笔交易）
     // Create coinbase transaction.
     CMutableTransaction coinbaseTx;
+    // todo coinbase奖励实际等同于铸造代币，所以没有输入来源，这里给输入数量设置1，引用的vout值为null
     coinbaseTx.vin.resize(1);
     coinbaseTx.vin[0].prevout.SetNull();
+    // todo 输出设置1，因为只有一笔输出
     coinbaseTx.vout.resize(1);
+    // todo 锁定脚本
     coinbaseTx.vout[0].scriptPubKey = scriptPubKeyIn;
+    // todo 奖励数量（手续费 + 区块最终补贴）
     coinbaseTx.vout[0].nValue = nFees + GetBlockSubsidy(nHeight, chainparams.GetConsensus());
+    // todo 解锁脚本
     coinbaseTx.vin[0].scriptSig = CScript() << nHeight << OP_0;
     pblock->vtx[0] = MakeTransactionRef(std::move(coinbaseTx));
     pblocktemplate->vchCoinbaseCommitment = m_chainstate.m_chainman.GenerateCoinbaseCommitment(*pblock, pindexPrev);

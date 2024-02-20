@@ -8,6 +8,13 @@
 #include <primitives/transaction.h>
 #include <consensus/validation.h>
 
+/**
+ * todo 交易区块内的交易，包括coinbase交易
+ *
+ * @param tx
+ * @param state
+ * @return
+ */
 bool CheckTransaction(const CTransaction& tx, TxValidationState& state)
 {
     // Basic checks that don't depend on any context

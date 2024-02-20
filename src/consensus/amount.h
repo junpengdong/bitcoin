@@ -11,9 +11,11 @@
 /** Amount in satoshis (Can be negative) */
 typedef int64_t CAmount;
 
+//todo Mr.dong 多少聪为一个btc
 /** The amount of satoshis in one BTC. */
 static constexpr CAmount COIN = 100000000;
 
+//todo btc总量
 /** No amount larger than this (in satoshi) is valid.
  *
  * Note that this constant is *not* the total money supply, which in Bitcoin

@@ -1665,15 +1665,18 @@ PackageMempoolAcceptResult ProcessNewPackage(Chainstate& active_chainstate, CTxM
     return result;
 }
 
+//todo Mr.dong 获取区块最终补贴奖励数量
 CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams)
 {
+    //todo 根据当前区块高度计算奖励减半次数
     int halvings = nHeight / consensusParams.nSubsidyHalvingInterval;
     // Force block reward to zero when right shift is undefined.
     if (halvings >= 64)
         return 0;
-
+    //todo 原始coinbase奖励数量
     CAmount nSubsidy = 50 * COIN;
     // Subsidy is cut in half every 210,000 blocks which will occur approximately every 4 years.
+    //todo 根据减半次数计算得出最终奖励数量
     nSubsidy >>= halvings;
     return nSubsidy;
 }

@@ -33,6 +33,11 @@ const CBaseChainParams& BaseParams()
 }
 
 /**
+ * todo 主网、测试网、signet测试网（为解决testnet的问题）、回归测试网
+ * todo 8332：rpc端口（接口调用）
+ * todo 8333：p2p端口（节点通信）
+ * todo 8334：长链接（wss）
+ *
  * Port numbers for incoming Tor connections (8334, 18334, 38334, 18445) have
  * been chosen arbitrarily to keep ranges of used ports tight.
  */
@@ -40,13 +45,17 @@ std::unique_ptr<CBaseChainParams> CreateBaseChainParams(const ChainType chain)
 {
     switch (chain) {
     case ChainType::MAIN:
-        return std::make_unique<CBaseChainParams>("", 8332, 8334);
+        return std::make_unique<CBaseChainParams>("", 9282, 9284);
+//        return std::make_unique<CBaseChainParams>("", 8332, 8334);
     case ChainType::TESTNET:
-        return std::make_unique<CBaseChainParams>("testnet3", 18332, 18334);
+        return std::make_unique<CBaseChainParams>("testnet3", 19282, 19284);
+//        return std::make_unique<CBaseChainParams>("testnet3", 18332, 18334);
     case ChainType::SIGNET:
-        return std::make_unique<CBaseChainParams>("signet", 38332, 38334);
+        return std::make_unique<CBaseChainParams>("signet", 39282, 39284);
+//        return std::make_unique<CBaseChainParams>("signet", 38332, 38334);
     case ChainType::REGTEST:
-        return std::make_unique<CBaseChainParams>("regtest", 18443, 18445);
+        return std::make_unique<CBaseChainParams>("regtest", 19383, 19385);
+//        return std::make_unique<CBaseChainParams>("regtest", 18443, 18445);
     }
     assert(false);
 }
