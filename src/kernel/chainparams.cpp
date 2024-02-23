@@ -214,7 +214,7 @@ public:
         consensus.CSVHeight = 770112; // 00000000025e930139bac5c6c31a403776da130831ab85be56578f3fa75369bb
         consensus.SegwitHeight = 834624; // 00000000002b980fcd729daaa248fd9316a5200e9b367f4ff2c42453e84201ca
         consensus.MinBIP9WarningHeight = 836640; // segwit activation height + miner confirmation window
-        consensus.powLimit = uint256S("00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
+        consensus.powLimit = uint256S("00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         // todo nMinerConfirmationWindow：2016个区块出块时间控制在下面设置的时间左右
 //        consensus.nPowTargetTimespan = 14 * 24 * 60 * 60; // two weeks
         consensus.nPowTargetTimespan = 60 * 60; // 1 hour
@@ -239,7 +239,7 @@ public:
         // todo 最小挖矿难度
 //        consensus.nMinimumChainWork = uint256S("0x000000000000000000000000000000000000000000000b6a51f415a67c0da307");
         consensus.nMinimumChainWork = uint256S("0x00");
-        consensus.defaultAssumeValid = uint256S("0x0000000000000093bcb68c03a9a168ae252572d348a2eaeba2cdf9231d73206f"); // 2500000
+//        consensus.defaultAssumeValid = uint256S("0x0000000000000093bcb68c03a9a168ae252572d348a2eaeba2cdf9231d73206f"); // 2500000
 
         pchMessageStart[0] = 0x0b;
         pchMessageStart[1] = 0x11;
