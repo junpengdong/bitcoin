@@ -19,7 +19,7 @@ static const int64_t MAX_BLOCK_SIGOPS_COST = 80000;
 //todo Mr.dong coinbase奖励成熟度（即奖励将在100个区块确认后生效）
 /** Coinbase transaction outputs can only be spent after this number of new blocks (network rule) */
 //static const int COINBASE_MATURITY = 100;
-static const int COINBASE_MATURITY = 5;
+static const int COINBASE_MATURITY = 2;
 
 static const int WITNESS_SCALE_FACTOR = 4;
 
