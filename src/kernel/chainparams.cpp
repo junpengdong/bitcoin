@@ -207,10 +207,9 @@ public:
         consensus.nSubsidyHalvingInterval = 210000;
 //        consensus.script_flag_exceptions.emplace( // BIP16 exception
 //            uint256S("0x00000000dd30457c001f4095d208cc1296b0eed002427aa599874af7a432b105"), SCRIPT_VERIFY_NONE);
-//        consensus.BIP34Height = 21111;
-        consensus.BIP34Height = 1;
+        consensus.BIP34Height = 210000 * 4 * 4;
 //        consensus.BIP34Hash = uint256S("0x0000000023b3a96d3484e5abb3755c413e7d41500f8e2a5c3f0dd01299cd8ef8");
-        consensus.BIP34Hash = uint256{};
+        consensus.BIP34Hash = uint256();
 //        consensus.BIP65Height = 581885; // 00000000007f6655f22f98e72ed80d8b06dc761d5da09df0fa1dc4be4f861eb6
         consensus.BIP65Height = 1; // 00000000007f6655f22f98e72ed80d8b06dc761d5da09df0fa1dc4be4f861eb6
 //        consensus.BIP66Height = 330776; // 000000002104c8c45e99a8853285a3b592602a3ccde2b832481da85e9e4ba182
@@ -222,17 +221,23 @@ public:
         consensus.MinBIP9WarningHeight = 0; // segwit activation height + miner confirmation window
         // todo 出块难度
 //        consensus.powLimit = uint256S("00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
-        consensus.powLimit = uint256S("0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
+        consensus.powLimit = uint256S("00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         // todo nMinerConfirmationWindow：2016个区块出块时间控制在下面设置的时间左右
 //        consensus.nPowTargetTimespan = 14 * 24 * 60 * 60; // two weeks
         consensus.nPowTargetTimespan = 60 * 60; // 1 hour
         // todo 一个区块出块的平均时间控制在下面设置的时间左右
 //        consensus.nPowTargetSpacing = 10 * 60; // 10 min
         consensus.nPowTargetSpacing = 30; // 30 seconds
-        consensus.fPowAllowMinDifficultyBlocks = false;
-        consensus.fPowNoRetargeting = false;
+        // todo 是否允许开采出最低难度的区块。
+        consensus.fPowAllowMinDifficultyBlocks = true;
+        // todo 是否允许难度重定标（调整难度）。
+        consensus.fPowNoRetargeting = true;
+        // todo 激活规则变更所需的确认阈值（2016个区块中的75%）。
         consensus.nRuleChangeActivationThreshold = 1512; // 75% for testchains
+        // todo 开采节点确认窗口大小，即难度调整时间跨度除以区块时间间隔。
         consensus.nMinerConfirmationWindow = 2016; // nPowTargetTimespan / nPowTargetSpacing
+
+        // todo 针对共识规则的部署设置，这里以DEPLOYMENT_TESTDUMMY为例，用于测试。
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nStartTime = Consensus::BIP9Deployment::NEVER_ACTIVE;
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nTimeout = Consensus::BIP9Deployment::NO_TIMEOUT;
